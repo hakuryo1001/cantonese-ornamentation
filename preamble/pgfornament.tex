@@ -1,0 +1,30 @@
+% pgfornament catalog layer — does not modify preamble/main.tex or submodule wiring.
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage[object=pgfhan]{pgfornament}
+\usetikzlibrary{calc}
+
+\makeatletter
+\newcommand{\getpgfornamentDim}[1]{%
+ {\@pgfornamentDim{#1}%
+ X:~\@pgfornamentX\\Y:~\@pgfornamentY}%
+}
+\newcommand{\adjustpgfornamentDim}[1]{%
+\@pgfornamentDim{#1}%
+\pgfmathsetmacro{\pgfcoeff}{\@pgfornamentX/\@pgfornamentY}%
+}
+\makeatother
+
+\newcommand{\ornamentview}[1]{%
+\foreach \n in {#1} {%
+\begin{tikzpicture}
+  \adjustpgfornamentDim{\n}
+  \ifdim\pgfcoeff pt >1 pt \relax \def\adjustXY{2}
+  \else
+  \pgfmathsetmacro{\adjustXY}{2*\pgfcoeff}
+  \fi
+\draw[Maroon](-1.25cm,-1.25cm) rectangle (1.25cm,1.25cm);
+\node[inner sep=0pt] (element) {\pgfornament[width=\adjustXY cm]{\n}};
+\node[anchor=north west,inner sep=0pt,font=\small\bfseries\sffamily,color=red] at (2.05cm,1.05cm) {\n};
+\node[anchor=west,text width=4em,font=\footnotesize] at (1.85cm,0) {\getpgfornamentDim{\n}};
+\end{tikzpicture}%
+\space\space\space\space}}

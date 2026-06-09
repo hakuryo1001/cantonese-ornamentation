@@ -1,0 +1,241 @@
+# Cantonese Ornament Package (LaTeX) – Concept Memo
+
+## Objective
+
+Develop a LaTeX package, tentatively named `cantoneseornament`, that provides a coherent system of Cantonese-inspired decorative elements for books, essays, academic papers, poetry, and ceremonial documents.
+
+The goal is not to imitate European medieval ornamentation, but to establish a distinctive visual language rooted in Cantonese culture, Lingnan architecture, maritime commerce, and the structural aesthetics of Chinese characters.
+
+---
+
+## Design Principles
+
+### 1. System Before Symbols
+
+The package should prioritize reusable ornamental grammars rather than isolated cultural icons.
+
+Good motifs generate:
+
+* Borders
+* Frames
+* Corners
+* Dividers
+* Initial capitals
+* Chapter ornaments
+
+The objective is to create a complete decorative vocabulary analogous to:
+
+* Celtic knotwork
+* Islamic geometric ornament
+* Japanese mon and pattern systems
+
+---
+
+### 2. Primary Motif Families
+
+#### Lingnan Architecture
+
+Potential sources:
+
+* Manchurian window lattices (滿洲窗)
+* Wok-ear roof profiles (鑊耳屋)
+* Gray-sculpture reliefs (灰塑)
+* Ceramic mosaic ornamentation (嵌瓷)
+
+These motifs are particularly suitable for borders and frames.
+
+#### Maritime Canton
+
+Potential sources:
+
+* Pearl River wave patterns
+* Junk ship silhouettes
+* Maritime ropework
+* Fishing-net geometries
+
+These motifs reflect the trading and seafaring traditions of Cantonese society.
+
+#### Merchant Culture
+
+Potential sources:
+
+* Guild seals
+* Merchant chops
+* Abacuses
+* Counting rods
+* Historical accounting marks
+
+These motifs emphasize Canton's mercantile heritage.
+
+#### Flora
+
+Potential sources:
+
+* Banyan roots and branching structures
+* Kapok flowers
+* Lychee clusters
+
+These provide organic ornamental systems analogous to European vines and floral scrollwork.
+
+#### Cantonese Opera
+
+Potential sources:
+
+* Embroidery patterns
+* Headdresses
+* Costume ornamentation
+
+These are particularly useful for chapter headings and decorative flourishes.
+
+---
+
+## Long-Term Direction: Sinoglyph Ornamentation
+
+The most original component of the project is the development of ornaments derived directly from Chinese character structure.
+
+Rather than using external imagery, decorative elements would emerge from:
+
+* Radicals
+* Stroke patterns
+* Seal-script geometry
+* Character composition
+
+Examples:
+
+* Water borders from 氵
+* Mountain borders from 山
+* Gate frames from 門
+* Fire dividers from 灬
+
+This creates a uniquely Sinitic ornamental system whose decorative logic emerges from writing itself.
+
+Such a system has no direct analogue in existing LaTeX ornament packages.
+
+---
+
+## Technical Architecture
+
+### Package Structure
+
+```text
+cantoneseornament/
+
+├── cantoneseornament.sty
+├── tikz/
+│   ├── maritime.tex
+│   ├── lingnan.tex
+│   ├── merchant.tex
+│   ├── flora.tex
+│   └── sinoglyph.tex
+│
+├── images/
+│   ├── wave.pdf
+│   ├── junk.pdf
+│   ├── seal.pdf
+│   └── lion.pdf
+│
+├── docs/
+│   └── cantoneseornament.pdf
+│
+└── examples/
+```
+
+---
+
+### Asset Creation
+
+Initial motifs should be designed as vector graphics using:
+
+* Inkscape
+* Figma
+* Adobe Illustrator
+
+Artwork should be stored as SVG and exported to PDF for LaTeX integration.
+
+---
+
+### Rendering Strategy
+
+Two complementary approaches:
+
+#### Asset-Based
+
+```latex
+\includegraphics
+```
+
+Used for complex artwork and illustrative motifs.
+
+#### TikZ-Based
+
+```latex
+\begin{tikzpicture}
+...
+\end{tikzpicture}
+```
+
+Used for scalable and procedural ornament generation.
+
+---
+
+## Core User API
+
+Examples:
+
+```latex
+\cantoneseframe{wave}
+
+\cantonesechapterbreak{junk}
+
+\cantoneseinitial{龍}
+
+\radicalborder{氵}
+
+\radicalframe{門}
+```
+
+---
+
+## Development Roadmap
+
+### Phase 1 — Foundation
+
+* Wave motifs
+* Seal motifs
+* Window lattice motifs
+* Basic borders and dividers
+
+### Phase 2 — Lingnan Collection
+
+* Architectural frames
+* Roofline ornaments
+* Gray-sculpture inspired elements
+
+### Phase 3 — Maritime Collection
+
+* Junk ships
+* Ropework
+* Fishing-net geometries
+
+### Phase 4 — Merchant Collection
+
+* Guild seals
+* Counting rods
+* Abacus ornaments
+
+### Phase 5 — Sinoglyph Engine
+
+* Radical-based borders
+* Character-derived corners
+* Procedural ornament generation
+* Seal-script ornament system
+
+---
+
+## Strategic Vision
+
+The project's most significant contribution is not a collection of Cantonese-themed decorations, but the creation of a new ornamental tradition whose decorative grammar emerges from Chinese writing itself.
+
+Where European manuscript ornament evolved from vines, knots, and Christian iconography, a Cantonese ornament package can evolve from radicals, strokes, seals, architectural geometry, and maritime culture.
+
+This would make `cantoneseornament` not merely a regional styling package, but a genuinely new typographic and decorative system.

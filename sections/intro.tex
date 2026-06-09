@@ -1,0 +1,47 @@
+\chapter{pgfhan ornament catalog}
+
+This document showcases the \textbf{pgfhan} family from the vendored
+\texttt{pgfornament} package: 78 Chinese traditional motifs drawn by
+Chennan Zhang and converted for \LaTeX{} by LianTze Lim.
+
+\section{Basic usage}
+
+Load the package with the \texttt{pgfhan} object (already configured in
+\texttt{preamble/pgfornament.tex}):
+
+\begin{verbatim}
+\usepackage[object=pgfhan]{pgfornament}
+\pgfornament[width=2cm, color=SeaGreen]{59}
+\end{verbatim}
+
+Example rendered at catalog scale:
+
+\begin{center}
+  \pgfornament[width=2cm, color=SeaGreen]{59}
+\end{center}
+
+\section{Symmetry options}
+
+Horizontal, vertical, and central symmetry are available via the
+\texttt{symmetry} key:
+
+\begin{center}
+\begin{tikzpicture}
+  \node at (0,0) {\pgfornament[width=1.5cm]{40}};
+  \node at (3,0) {\pgfornament[width=1.5cm, symmetry=h]{40}};
+  \node at (6,0) {\pgfornament[width=1.5cm, symmetry=v]{40}};
+  \node at (9,0) {\pgfornament[width=1.5cm, symmetry=c]{40}};
+\end{tikzpicture}
+\end{center}
+
+\noindent
+From left to right: none, \texttt{symmetry=h}, \texttt{symmetry=v},
+\texttt{symmetry=c}.
+
+\section{Catalog overview}
+
+The following chapters list every pgfhan ornament by index number.
+Each cell shows the ornament inside a square frame, with its index and
+native dimensions (in bp).
+
+\tableofcontents
