@@ -1,0 +1,18 @@
+% cantoneseornament.sty — Cantonese ornament package (pgfornament extension)
+% Requires \usepackage[object=pgfhan]{pgfornament} before this file.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cantoneseornament}[2026/06/10 v0.1 Cantonese ornaments]
+
+\newcommand{\cantoneseornament}[2][]{%
+  \begin{newfamily}[cantonese]%
+  \pgfornament[#1]{#2}%
+  \end{newfamily}%
+}
+
+\let\cantoneseornamenthline\pgfornamenthline
+\let\cantoneseornamentvline\pgfornamentvline
+\let\cantoneseornamentline\pgfornamentline
+
+\input{cantonese-pgfornament/latex/cantonese-frame.sty}
+
+\endinput

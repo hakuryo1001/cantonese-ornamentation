@@ -1,47 +1,51 @@
-\chapter{pgfhan ornament catalog}
+\chapter{Ornament catalog}
 
-This document showcases the \textbf{pgfhan} family from the vendored
-\texttt{pgfornament} package: 78 Chinese traditional motifs drawn by
-Chennan Zhang and converted for \LaTeX{} by LianTze Lim.
+This document showcases two ornament libraries built on \texttt{pgfornament}:
 
-\section{Basic usage}
+\begin{itemize}
+  \item \textbf{pgfhan} --- 78 Chinese traditional motifs (Chennan Zhang /
+        LianTze Lim), catalogued in Part~I.
+  \item \textbf{cantonese} --- original Cantonese decorative motifs
+        (Lingnan, maritime, merchant), catalogued in Part~II.
+\end{itemize}
 
-Load the package with the \texttt{pgfhan} object (already configured in
-\texttt{preamble/pgfornament.tex}):
+\section{pgfhan usage}
 
 \begin{verbatim}
 \usepackage[object=pgfhan]{pgfornament}
 \pgfornament[width=2cm, color=SeaGreen]{59}
 \end{verbatim}
 
-Example rendered at catalog scale:
-
 \begin{center}
   \pgfornament[width=2cm, color=SeaGreen]{59}
 \end{center}
 
+\section{Cantonese usage}
+
+\begin{verbatim}
+\usepackage[object=pgfhan]{pgfornament}
+\usepackage{cantoneseornament}
+\cantoneseornament[width=2cm, color=Maroon]{1}
+\end{verbatim}
+
+\begin{center}
+  \cantoneseornament[width=2cm, color=Maroon]{1}
+\end{center}
+
 \section{Symmetry options}
 
-Horizontal, vertical, and central symmetry are available via the
-\texttt{symmetry} key:
+Both families support \texttt{symmetry=h|v|c}:
 
 \begin{center}
 \begin{tikzpicture}
   \node at (0,0) {\pgfornament[width=1.5cm]{40}};
   \node at (3,0) {\pgfornament[width=1.5cm, symmetry=h]{40}};
-  \node at (6,0) {\pgfornament[width=1.5cm, symmetry=v]{40}};
-  \node at (9,0) {\pgfornament[width=1.5cm, symmetry=c]{40}};
+  \node at (6,0) {\cantoneseornament[width=1.5cm]{2}};
+  \node at (9,0) {\cantoneseornament[width=1.5cm, symmetry=h]{2}};
 \end{tikzpicture}
 \end{center}
 
 \noindent
-From left to right: none, \texttt{symmetry=h}, \texttt{symmetry=v},
-\texttt{symmetry=c}.
-
-\section{Catalog overview}
-
-The following chapters list every pgfhan ornament by index number.
-Each cell shows the ornament inside a square frame, with its index and
-native dimensions (in bp).
+Left two: pgfhan~40. Right two: cantonese~2.
 
 \tableofcontents

@@ -1,5 +1,10 @@
 \documentclass[a4paper, 10pt, openany]{book}
 
+% Paths for local cantonese-pgfornament family (pgfhan uses system pgfornament)
+\makeatletter
+\def\input@path{{cantonese-pgfornament/latex/}{cantonese-pgfornament/generic/cantonese/}}
+\makeatother
+
 \usepackage[paperwidth=210mm, paperheight=297mm,
          top=2cm, bottom=2.5cm, inner=2cm, outer=2cm,
          headsep=1cm, footskip=1.5cm]{geometry}
@@ -23,10 +28,20 @@
 \jcz{}
 
 \input{sections/intro.tex}
+
+\part{pgfhan ornaments}
 \input{sections/corners-simple.tex}
 \input{sections/corners-double.tex}
 \input{sections/corners.tex}
 \input{sections/lines.tex}
 \input{sections/other.tex}
+
+\part{Cantonese ornaments}
+\input{sections/cantonese-intro.tex}
+\input{sections/cantonese-corners.tex}
+\input{sections/cantonese-edges.tex}
+\input{sections/cantonese-centerpieces.tex}
+\input{sections/cantonese-dividers.tex}
+\input{sections/cantonese-frames.tex}
 
 \end{document}

@@ -1,0 +1,116 @@
+% cantonese-frame.sty — frame and divider helpers for Cantonese ornaments
+% Requires pgfornament to be loaded before this package.
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{tikz}
+\RequirePackage{eso-pic}
+\usetikzlibrary{calc}
+\ProvidesPackage{cantonese-frame}[2026/06/10 v0.1 Cantonese frame helpers]
+
+\makeatletter
+\pgfkeys{
+  /cantoneseframe/.cd,
+  corner/.store in=\cantoneseframe@corner,
+  corner=1,
+  edge/.store in=\cantoneseframe@edge,
+  edge=2,
+  width/.store in=\cantoneseframe@width,
+  width=8cm,
+  height/.store in=\cantoneseframe@height,
+  height=8cm,
+  color/.store in=\cantoneseframe@color,
+  color=Maroon,
+  fill/.store in=\cantoneseframe@fill,
+  fill=,
+  corner scale/.store in=\cantoneseframe@cornerscale,
+  corner scale=0.2,
+  edge scale/.store in=\cantoneseframe@edgescale,
+  edge scale=0.6,
+}
+
+\newcommand{\cantoneseframe}[2][]{%
+  \begin{newfamily}[cantonese]%
+  \pgfkeys{/cantoneseframe/.cd, #1}%
+  \begin{tikzpicture}
+    \node[
+      minimum width=\cantoneseframe@width,
+      minimum height=\cantoneseframe@height,
+      inner sep=0.5em,
+      fill=\cantoneseframe@fill,
+      align=center
+    ] (cantobox) {#2};
+    \node[inner sep=0pt, anchor=north west] at (cantobox.north west) {%
+      \pgfornament[color=\cantoneseframe@color, anchor=north west,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width]{\cantoneseframe@corner}};
+    \node[inner sep=0pt, anchor=north east] at (cantobox.north east) {%
+      \pgfornament[color=\cantoneseframe@color, anchor=north east,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=v]{\cantoneseframe@corner}};
+    \node[inner sep=0pt, anchor=south west] at (cantobox.south west) {%
+      \pgfornament[color=\cantoneseframe@color, anchor=south west,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=h]{\cantoneseframe@corner}};
+    \node[inner sep=0pt, anchor=south east] at (cantobox.south east) {%
+      \pgfornament[color=\cantoneseframe@color, anchor=south east,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=c]{\cantoneseframe@corner}};
+    \pgfornamenthline{cantobox}{cantobox}{north}{\cantoneseframe@edge}
+    \pgfornamenthline{cantobox}{cantobox}{south}{\cantoneseframe@edge}
+    \pgfornamentvline{cantobox}{cantobox}{west}{\cantoneseframe@edge}
+    \pgfornamentvline{cantobox}{cantobox}{east}{\cantoneseframe@edge}
+  \end{tikzpicture}%
+  \end{newfamily}%
+}
+
+\pgfkeys{
+  /cantonesedivider/.cd,
+  width/.store in=\cantonesedivider@width,
+  width=\linewidth,
+  color/.store in=\cantonesedivider@color,
+  color=Maroon,
+  ornament width/.store in=\cantonesedivider@ornwidth,
+  ornament width=2cm,
+}
+
+\newcommand{\cantonesedivider}[2][]{%
+  \begin{newfamily}[cantonese]%
+  \pgfkeys{/cantonesedivider/.cd, #1}%
+  \begin{tikzpicture}
+    \draw[\cantonesedivider@color, line width=0.4pt]
+      (0,0) -- (\cantonesedivider@width,0);
+    \node[inner sep=0pt] at (0.5*\cantonesedivider@width,0) {%
+      \pgfornament[color=\cantonesedivider@color, width=\cantonesedivider@ornwidth]{#2}};
+  \end{tikzpicture}%
+  \end{newfamily}%
+}
+
+% Frame presets — corner/edge ID pairs for common document styles
+\pgfkeys{
+  /cantoneseframepreset/.is family, /cantoneseframepreset,
+  lingnan/.style={/cantoneseframe/.cd, corner=1, edge=16, color=Maroon},
+  maritime/.style={/cantoneseframe/.cd, corner=51, edge=52, color=MidnightBlue},
+  merchant/.style={/cantoneseframe/.cd, corner=76, edge=77, color=SeaGreen},
+}
+\newcommand{\cantoneseframepreset}[1]{\pgfkeys{/cantoneseframepreset/#1}}
+
+\newcommand{\cantonesepageframe}[1][]{%
+  \pgfkeys{/cantoneseframe/.cd, #1}%
+  \AddToShipoutPicture{%
+    \begingroup
+    \setlength{\@tempdima}{1cm}%
+    \setlength{\@tempdimb}{\paperwidth-\@tempdima-1cm}%
+    \setlength{\@tempdimc}{\paperheight-\@tempdima}%
+    \put(\LenToUnit{\@tempdima},\LenToUnit{\@tempdimc}){%
+      \pgfornament[color=\cantoneseframe@color, anchor=north west,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width]{\cantoneseframe@corner}}%
+    \put(\LenToUnit{\@tempdimb},\LenToUnit{\@tempdimc}){%
+      \pgfornament[color=\cantoneseframe@color, anchor=north east,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=v]{\cantoneseframe@corner}}%
+    \put(\LenToUnit{\@tempdima},\LenToUnit{\@tempdima}){%
+      \pgfornament[color=\cantoneseframe@color, anchor=south west,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=h]{\cantoneseframe@corner}}%
+    \put(\LenToUnit{\@tempdimb},\LenToUnit{\@tempdima}){%
+      \pgfornament[color=\cantoneseframe@color, anchor=south east,
+        width=\cantoneseframe@cornerscale*\cantoneseframe@width, symmetry=c]{\cantoneseframe@corner}}%
+    \endgroup
+  }%
+}
+\makeatother
+
+\endinput

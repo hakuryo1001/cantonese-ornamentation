@@ -1,0 +1,50 @@
+% sinoglyph.sty — procedural borders from Chinese character geometry
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{tikz}
+\RequirePackage{pgfopts}
+\ProvidesPackage{sinoglyph}[2026/06/10 v0.1 Sinoglyph ornament engine]
+
+\makeatletter
+\pgfkeys{
+  /sinoglyph/.cd,
+  char/.store in=\sinoglyph@char,
+  char=水,
+  width/.store in=\sinoglyph@width,
+  width=2cm,
+  color/.store in=\sinoglyph@color,
+  color=Maroon,
+  repeat/.store in=\sinoglyph@repeat,
+  repeat=5,
+}
+
+% Placeholder engine: renders the character as a repeating border motif.
+% Future work: extract stroke paths from font outlines for true radical geometry.
+\newcommand{\sinoglyphunit}{%
+  \tikz[baseline=-0.5ex]{%
+    \node[inner sep=0pt, font=\sinoglyph@width, text=\sinoglyph@color]{\sinoglyph@char};%
+  }%
+}
+
+\newcommand{\sinoglyphborder}[2][]{%
+  \pgfkeys{/sinoglyph/.cd, char=#2, #1}%
+  \begin{tikzpicture}
+    \foreach \i in {1,...,\sinoglyph@repeat} {%
+      \node[inner sep=2pt] at ({(\i-1)*1.2},0) {\sinoglyphunit};%
+    }
+  \end{tikzpicture}%
+}
+
+\newcommand{\sinoglyphcorner}[2][]{%
+  \pgfkeys{/sinoglyph/.cd, char=#2, #1}%
+  \sinoglyphunit
+}
+
+\newcommand{\sinoglyphdivider}[2][]{%
+  \pgfkeys{/sinoglyph/.cd, char=#2, #1}%
+  \begin{center}
+    \sinoglyphborder[repeat=3,color=\sinoglyph@color,char=\sinoglyph@char]%
+  \end{center}%
+}
+\makeatother
+
+\endinput
