@@ -1,25 +1,14 @@
 #!/usr/bin/env python3
-"""Regenerate pgflibrarycantonese.code.tex from all .pgf files and SVG sources."""
+"""Regenerate pgflibrarycantonese.code.tex from copied .pgf and .dim.json files."""
 from __future__ import annotations
 
+import json
 import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PGF_DIR = ROOT / "generic" / "cantonese"
 LIBRARY = ROOT / "latex" / "pgflibrarycantonese.code.tex"
-SOURCE_ROOT = ROOT / "source" / "ornaments"
-
-import importlib.util
-
-_spec = importlib.util.spec_from_file_location(
-    "gen_dim", Path(__file__).parent / "gen-dim.py"
-)
-_mod = importlib.util.module_from_spec(_spec)
-assert _spec.loader is not None
-_spec.loader.exec_module(_mod)
-dimensions = _mod.dimensions
 
 
 def ornament_ids() -> list[int]:
@@ -31,13 +20,12 @@ def ornament_ids() -> list[int]:
     return sorted(ids)
 
 
-def find_source_svg(ornament_id: int) -> Path | None:
-    for svg in SOURCE_ROOT.rglob("*.svg"):
-        if re.search(rf"(?:^|[_-]){ornament_id}(?:\.|_|$)", svg.stem):
-            return svg
-        if svg.stem == f"cantonese{ornament_id}":
-            return svg
-    return None
+def load_dimensions(oid: int) -> tuple[int, int]:
+    dim_path = PGF_DIR / f"cantonese{oid}.dim.json"
+    if dim_path.exists():
+        data = json.loads(dim_path.read_text(encoding="utf-8"))
+        return int(data["width"]), int(data["height"])
+    return 200, 200
 
 
 def build_library() -> str:
@@ -50,13 +38,13 @@ def build_library() -> str:
         r"\ifcase#1\relax%",
     ]
 
+    prev = 0
     for oid in ornament_ids():
-        svg = find_source_svg(oid)
-        if svg and svg.exists():
-            w, h = dimensions(svg)
-        else:
-            w, h = 200, 200
+        for _ in range(prev + 1, oid):
+            lines.append(r"\or")
+        w, h = load_dimensions(oid)
         lines.append(f"\\or\\def\\@pgfornamentX{{{w}}}\\def\\@pgfornamentY{{{h}}}% {oid}")
+        prev = oid
 
     lines += [
         r"\fi%",
